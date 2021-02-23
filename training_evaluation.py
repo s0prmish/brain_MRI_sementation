@@ -1,15 +1,9 @@
-import torch.nn as nn
-
-from torch import optim
-from torchvision import transforms, utils
-from tqdm import tqdm
-
-from dataloader import MriSegmentation
-from model import Net
+from data.dataloader import MriSegmentation
+from model.unet import Net
 import torch,cv2
 
 from torchvision import transforms, utils
-from torch import nn
+from torch import nn,optim
 from torch.utils.data import  Dataset, DataLoader, random_split
 
 if __name__ == '__main__':
@@ -24,7 +18,7 @@ if __name__ == '__main__':
                                                                 transforms.ToTensor(),
                                                                 transforms.Normalize(mean=[0.5], std=[0.5])]))
 
-    n_val = int(len(mri_dataset) * 0.1)
+    n_val = int(len(mri_dataset) * 0.2)
     n_train = len(mri_dataset) - n_val
     train, val = random_split(mri_dataset, [n_train, n_val])
 
@@ -41,10 +35,10 @@ if __name__ == '__main__':
 
     net.train()
     epoch_loss = 0
-    for epoch in range(1):  # loop over the dataset multiple times
+    for epoch in range(10):
         for i, data in enumerate(train_loader):
             running_loss = 0
-            # get the inputs; data is a list of [inputs, labels]
+
             images, masks = data
             # print("images : ", images.shape)
             # print("masks : ", masks.shape)

@@ -78,7 +78,7 @@ if __name__ == "__main__":
     print(mri_dataset)
     # dataloader = DataLoader(mri_dataset, batch_size=4, shuffle=True, num_workers=0, collate_fn=None)
 
-    n_val = int(len(mri_dataset) * 0.1)
+    n_val = int(len(mri_dataset) * 0.2)
     n_train = len(mri_dataset) - n_val
     train, val = random_split(mri_dataset, [n_train, n_val])
 
